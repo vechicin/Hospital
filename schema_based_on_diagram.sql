@@ -23,3 +23,10 @@ CREATE TABLE invoice_items(
   treatment_id INT NOT NULL,
   PRIMARY KEY(id)
 );
+
+CREATE TABLE treatments (
+  id INT GENERATED ALWAYS AS IDENTITY,
+  type VARCHAR NOT NULL,
+  name VARCHAR NOT NULL,
+  PRIMARY KEY(id)
+);
