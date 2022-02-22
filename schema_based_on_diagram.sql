@@ -30,3 +30,11 @@ CREATE TABLE treatments (
   name VARCHAR NOT NULL,
   PRIMARY KEY(id)
 );
+
+CREATE TABLE medical_histories(
+  id INT GENERATED ALWAYS AS IDENTITY,
+  admitted_at TIMESTAMP NOT NULL,
+  patient_id INT NOT NULL,
+  status VARCHAR NOT NULL,
+  PRIMARY KEY(id)
+);
