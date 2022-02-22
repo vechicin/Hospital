@@ -27,7 +27,10 @@ CREATE TABLE invoice_items(
   PRIMARY KEY(id),
   CONSTRAINT fk_invoice_items
   FOREIGN KEY invoice_id
-  REFERENCES invoices(id)
+  REFERENCES invoices(id),
+  CONSTRAINT fk_invoice_items_treatment
+  FOREIGN KEY treatment_id
+  REFERENCES treatments(id)
 );
 
 CREATE TABLE treatments (
@@ -46,4 +49,17 @@ CREATE TABLE medical_histories(
   CONSTRAINT fk_patient
   FOREIGN KEY (patient_id)
   REFERENCES patients(id)
+);
+
+CREATE TABLE treatment_histories(
+  id INT GENERATED ALWAYS AS IDENTITY,
+  treatment_id INT NOT NULL,
+  medical_history_id INT NOT NULL,
+  PRIMARY KEY(id),
+  CONSTRAINT fk_treatment_histories
+  FOREIGN KEY (treatment_id)
+  REFERENCES treatments(id),
+  CONSTRAINT fk_treatment_histories_medical_history
+  FOREIGN KEY (medical_history_id)
+  REFERENCES medical_histories(id)
 );
