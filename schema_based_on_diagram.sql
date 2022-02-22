@@ -11,7 +11,10 @@ CREATE TABLE invoices (
     generated_at TIMESTAMP NOT NULL DEFAULT NOW(),
     payed_at TIMESTAMP NOT NULL,
     medical_history_id INT NOT NULL,
-    PRIMARY KEY(id)
+    PRIMARY KEY(id),
+    CONSTRAINT fk_invoices
+    FOREIGN KEY (medical_history_id)
+    REFERENCES medical_histories(id)
 );
 
 CREATE TABLE invoice_items(
@@ -21,7 +24,10 @@ CREATE TABLE invoice_items(
   total_price DECIMAL(10,2) NOT NULL,
   invoice_id INT NOT NULL,
   treatment_id INT NOT NULL,
-  PRIMARY KEY(id)
+  PRIMARY KEY(id),
+  CONSTRAINT fk_invoice_items
+  FOREIGN KEY invoice_id
+  REFERENCES invoices(id)
 );
 
 CREATE TABLE treatments (
