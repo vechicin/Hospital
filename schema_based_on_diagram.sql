@@ -5,6 +5,17 @@ CREATE TABLE patients(
   PRIMARY KEY(id)
 );
 
+CREATE TABLE medical_histories(
+  id INT GENERATED ALWAYS AS IDENTITY,
+  admitted_at TIMESTAMP NOT NULL,
+  patient_id INT NOT NULL,
+  status VARCHAR NOT NULL,
+  PRIMARY KEY(id),
+  CONSTRAINT fk_patient
+  FOREIGN KEY (patient_id)
+  REFERENCES patients(id)
+);
+
 CREATE TABLE invoices (
     id INT GENERATED ALWAYS AS IDENTITY,
     total_amount DECIMAL(10,2) NOT NULL,
@@ -17,6 +28,13 @@ CREATE TABLE invoices (
     REFERENCES medical_histories(id)
 );
 
+CREATE TABLE treatments (
+  id INT GENERATED ALWAYS AS IDENTITY,
+  type VARCHAR NOT NULL,
+  name VARCHAR NOT NULL,
+  PRIMARY KEY(id)
+);
+
 CREATE TABLE invoice_items(
   id INT GENERATED ALWAYS AS IDENTITY,
   unit_price DECIMAL(10,2) NOT NULL,
@@ -26,29 +44,11 @@ CREATE TABLE invoice_items(
   treatment_id INT NOT NULL,
   PRIMARY KEY(id),
   CONSTRAINT fk_invoice_items
-  FOREIGN KEY invoice_id
+  FOREIGN KEY (invoice_id)
   REFERENCES invoices(id),
   CONSTRAINT fk_invoice_items_treatment
-  FOREIGN KEY treatment_id
+  FOREIGN KEY (treatment_id)
   REFERENCES treatments(id)
-);
-
-CREATE TABLE treatments (
-  id INT GENERATED ALWAYS AS IDENTITY,
-  type VARCHAR NOT NULL,
-  name VARCHAR NOT NULL,
-  PRIMARY KEY(id)
-);
-
-CREATE TABLE medical_histories(
-  id INT GENERATED ALWAYS AS IDENTITY,
-  admitted_at TIMESTAMP NOT NULL,
-  patient_id INT NOT NULL,
-  status VARCHAR NOT NULL,
-  PRIMARY KEY(id),
-  CONSTRAINT fk_patient
-  FOREIGN KEY (patient_id)
-  REFERENCES patients(id)
 );
 
 CREATE TABLE treatment_histories(
