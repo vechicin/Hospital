@@ -36,5 +36,8 @@ CREATE TABLE medical_histories(
   admitted_at TIMESTAMP NOT NULL,
   patient_id INT NOT NULL,
   status VARCHAR NOT NULL,
-  PRIMARY KEY(id)
+  PRIMARY KEY(id),
+  CONSTRAINT fk_patient
+  FOREIGN KEY (patient_id)
+  REFERENCES patients(id)
 );
